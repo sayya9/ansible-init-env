@@ -1,0 +1,4 @@
+---
+- hosts: lab-centos
+  roles:
+    - { role: mirror, become: True }

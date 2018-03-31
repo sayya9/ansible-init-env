@@ -1,0 +1,3 @@
+mirror_pkgs:
+  - yum-utils
+  - createrepo
