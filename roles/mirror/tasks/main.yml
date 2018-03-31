@@ -1,9 +1,56 @@
 ---
-- name: include distro vars
-  include_vars: "{{ ansible_distribution }}.yml"
+- block:
+  - name: include distro vars
+    include_vars: "{{ ansible_distribution }}.yml"
 
-- name: install mirror package
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items: "{{ mirror_pkgs }}"
+  - name: install mirror package
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items: "{{ mirror_pkgs }}"
+
+  - name: sync repos to local
+    shell: "{{ item }}"
+    with_items: "{{ mirror_cmd }}"
+
+  - name: createrepo
+    shell: createrepo --update {{ item.value }}
+    with_dict: "{{ mirror_path }}"
+
+  - name: stat yum repo dir
+    stat: path=/etc/yum.repos.d
+    register: repo_stat
+
+  - name: move /etc/yum.repos.d
+    command: mv /etc/yum.repos.d /etc/yum.repos.d.orig
+    when: repo_stat.stat.exists
+    notify: yum-clean-metadata
+
+  - name: create yum repo dir
+    file:
+      path: /etc/yum.repos.d
+      state: directory
+
+  - name: add local repos
+    yum_repository:
+      name: "{{ item.key }}-local"
+      description: "{{ item.key }} local yum repo"
+      baseurl: file://{{ item.value | replace('base', 'os') }}
+      gpgcheck: no
+      file: local
+    with_dict: "{{ mirror_path }}"
+  rescue:
+    - name: remove yum repo dir
+      file:
+        state: absent
+        path: /etc/yum.repos.d
+      ignore_errors: True
+
+    - name: stat yum repo dir
+      stat: path=/etc/yum.repos.d.orig
+      register: repo_stat
+
+    - name: move /etc/yum.repos.d.orig
+      command: mv /etc/yum.repos.d.orig /etc/yum.repos.d
+      when: repo_stat.stat.exists
+      notify: yum-clean-metadata

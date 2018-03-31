@@ -1,4 +1,4 @@
 ---
 - hosts: lab-centos
   roles:
-    - { role: mirror, become: True }
+    - { role: mirror, become: True, tags: mirror }

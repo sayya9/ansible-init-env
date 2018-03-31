@@ -1,3 +1,12 @@
+---
 mirror_pkgs:
   - yum-utils
   - createrepo
+
+mirror_path:
+  base: /yum-repos/centos/7/os/x86_64
+  extras: /yum-repos/centos/7/extras/x86_64
+
+mirror_cmd:
+  - reposync -nr base -p {{ mirror_path.base }} --norepopath
+  - reposync -nr extras -p {{ mirror_path.extras }} --norepopath
