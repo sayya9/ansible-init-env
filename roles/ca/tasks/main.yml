@@ -1,0 +1,10 @@
+---
+- name: create dir
+  file:
+    path: /etc/docker/certs.d/{{ ca_docker_private }}
+    recurse: yes
+
+- name: copy CA cert
+  copy:
+    src: ca.crt
+    dest: /etc/docker/certs.d/{{ ca_docker_private }}/ca.crt
