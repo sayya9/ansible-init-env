@@ -1,5 +1,5 @@
 ---
-- hosts: lab-centos
+- hosts: tp-lab01
   roles:
     - { role: geerlingguy.ntp, ntp_timezone: Asia/Taipei, become: True }
     - { role: ca, become: True }
