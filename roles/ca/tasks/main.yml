@@ -8,3 +8,4 @@
   copy:
     src: ca.crt
     dest: /etc/docker/certs.d/{{ ca_docker_private }}/ca.crt
+  notify: restart docker
