@@ -3,7 +3,7 @@
   - name: include distro vars
     include_vars: "{{ ansible_distribution }}.yml"
 
-  - name: install mirror package
+  - name: install mirror packages
     package:
       name: "{{ item }}"
       state: latest
