@@ -20,7 +20,7 @@ ansible-playbook -i inventory/tp-lab01 --skip-tags mirror --ask-vault-pass init.
 NTP
 =======
 
-Update your customer ntp server in roles/geerlingguy.ntp/defaults/main.yml
+Update your customer ntp server in inventory/host_vars/tp-lab01
 
 ```
 ntp_servers:
