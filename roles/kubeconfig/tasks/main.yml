@@ -1,0 +1,23 @@
+---
+- set_fact:
+    kubeconfig_file: "{{ kubeconfig_file | default({}) | combine({ item: '~' + item + '/.kube' }) }}"
+  with_items: "{{ kube_users }}"
+
+- name: create essential dirs
+  file:
+    path: "{{ item.value }}"
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    mode: 0700
+    state: directory
+  with_dict: "{{ kubeconfig_file }}"
+
+- name: copy kubeconfig
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ item.value }}/config"
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    mode: 0700
+    remote_src: yes
+  with_dict: "{{ kubeconfig_file }}"

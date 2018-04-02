@@ -5,4 +5,4 @@
     group: docker
     shell: /bin/bash
     append: yes
-  with_items: "{{ adduser_users }}"
+  with_items: "{{ kube_users }}"

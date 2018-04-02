@@ -3,5 +3,6 @@
   roles:
     - { role: ca, become: True }
     - { role: adduser, become: yes }
+    - { role: kubeconfig, become: yes }
     - { role: geerlingguy.ntp, ntp_timezone: Asia/Taipei, become: True }
     - { role: mirror, become: True, tags: mirror }
