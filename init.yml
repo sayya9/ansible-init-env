@@ -2,6 +2,6 @@
 - hosts: all
   roles:
     - { role: ca, become: True }
-    - { role: adduser, become: yes }
-    - { role: kubeconfig, become: yes }
+    - { role: adduser, become: True }
+    - { role: kubeconfig, become: True }
     - { role: geerlingguy.ntp, ntp_timezone: Asia/Taipei, become: True }
