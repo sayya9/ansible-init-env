@@ -19,10 +19,10 @@ Sync yum repos to a local dir
 ansible-playbook -i inventory/tp-lab01 mirror.yml
 ```
 
-NTP
+Variables
 =======
 
-Update your customer ntp server in inventory/host_vars/tp-lab01
+Update your customer ntp servers in inventory/host_vars/tp-lab01
 
 ```
 ntp_servers:
@@ -30,4 +30,12 @@ ntp_servers:
   - "1{{ ntp_area }}.pool.ntp.org iburst"
   - "2{{ ntp_area }}.pool.ntp.org iburst"
   - "3{{ ntp_area }}.pool.ntp.org iburst"
+```
+
+Update your kubeconfig users in inventory/host_vars/tp-lab01
+
+```
+kube_users:
+  - inu
+  - andrew
 ```
