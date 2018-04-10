@@ -5,24 +5,36 @@ Prepare a environment before installing Kubernetes.
 INSTALL
 =======
 
-To install
+To clone
 
 ```
 git clone https://github.com/sayya9/ansible-init-env.git
 cd ansible-init-env
-ansible-playbook -i inventory/tp-lab01 --ask-vault-pass init.yml
+cp -a inventory/example inventory/your_host
+```
+
+To modify
+
+```
+inventory/your_host/*
+```
+
+To install
+
+```
+ansible-playbook -i inventory/your_host/inventory --ask-vault-pass init.yml
 ```
 
 Sync yum repos to a local dir
 
 ```
-ansible-playbook -i inventory/tp-lab01 mirror.yml
+ansible-playbook -i inventory/your_host/inventory mirror.yml
 ```
 
 Variables
 =======
 
-Update your customer ntp servers in inventory/host_vars/tp-lab01
+Update your customer ntp servers in inventory/your_host/group_vars/all.yml
 
 ```
 ntp_servers:
@@ -32,7 +44,7 @@ ntp_servers:
   - "3{{ ntp_area }}.pool.ntp.org iburst"
 ```
 
-Update your kubeconfig users in inventory/host_vars/tp-lab01
+Update your kubeconfig users in inventory/your_host/group_vars/all.yml
 
 ```
 kube_users:

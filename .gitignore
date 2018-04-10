@@ -1,2 +1,3 @@
 *.retry
-password.txt
+inventory/*
+!inventory/example
