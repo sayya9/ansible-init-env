@@ -2,7 +2,7 @@
 - name: add the user to docker groups
   user:
     name: "{{ item }}"
-    group: docker
+    groups: docker
     shell: /bin/bash
     append: yes
   with_items: "{{ kube_users }}"
