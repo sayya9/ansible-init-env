@@ -28,7 +28,7 @@ ansible-playbook -i inventory/your_host/inventory -b --ask-vault-pass init.yml
 Sync yum repos to a local dir
 
 ```
-ansible-playbook -i inventory/your_host/inventory mirror.yml
+ansible-playbook -i inventory/your_host/inventory -b mirror.yml
 ```
 
 Variables
