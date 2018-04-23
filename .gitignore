@@ -1,3 +1,4 @@
 *.retry
 inventory/*
 !inventory/example
+!inventory/local
